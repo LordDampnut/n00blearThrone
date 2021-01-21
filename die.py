@@ -5,13 +5,12 @@ Created on Thu Jan 21 18:05:18 2021
 @author: 4Null
 """
 import NTCONST
-import json
 import requests
-import numpy
+import numpy as np
 
 def recordRun(): #write previous run to file, csv format
     
-    time = numpy.loadtxt("output/history.txt", delimiter=",", dtype=str)
+    time = np.loadtxt("output/history.txt", delimiter=",", dtype=str)
     if not (previousRun["timestamp"] == int(time.T[0][-1])):      
         file = open("output/history.txt","a")
         file.write(
