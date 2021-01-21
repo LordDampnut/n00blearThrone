@@ -1,0 +1,29 @@
+0	Heavy Heart
+1	Rhino Skin
+2	Extra Feet
+3	Plutonium Hunger
+4	Rabbit Paw
+5	Throne Butt
+6	Lucky Shot
+7	Bloodlust
+8	Gamma Guts
+9	Second Stomach
+10	Back Muscle
+11	Scarier Face
+12	Euphoria
+13	Long Arms
+14	Boiling Veins
+15	Shotgun Shoulders
+16	Recycle Gland
+17	Laser Brain
+18	Last Wish
+19	Eagle Eyes
+20	Impact Wrists
+21	Bolt Marrow
+22	Stress
+23	Trigger Fingers
+24	Sharp Teeth
+25	Patience
+26	Hammerhead
+27	Strong Spirit
+28	Open Mind

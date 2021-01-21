@@ -1,0 +1,13 @@
+1	No Crown
+2	Crown of Death
+3	Crown of Life
+4	Crown of Haste
+5	Crown of Guns
+6	Crown of Hatred
+7	Crown of Blood
+8	Crown of Destiny
+9	Crown of Love
+10	Crown of Luck
+11	Crown of Curses
+12	Crown of Risk
+13	Crown of Protection

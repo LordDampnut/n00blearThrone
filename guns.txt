@@ -1,0 +1,127 @@
+0	Nothing
+1	Revolver
+2	Triple Machinegun
+3	Wrench
+4	Machinegun
+5	Shotgun
+6	Crossbow
+7	Grenade Launcher
+8	Double Shotgun
+9	Minigun
+10	Auto Shotgun
+11	Auto Crossbow
+12	Super Crossbow
+13	Shovel
+14	Bazooka
+15	Sticky Launcher
+16	SMG
+17	Assault Rifle
+18	Disc Gun
+19	Laser Pistol
+20	Laser Rifle
+21	Slugger
+22	Gatling Slugger
+23	Assault Slugger
+24	Energy Sword
+25	Super Slugger
+26	Hyper Rifle
+27	Screwdriver
+28	Laser Minigun
+29	Blood Launcher
+30	Splinter Gun
+31	Toxic Bow
+32	Sentry Gun
+33	Wave Gun
+34	Plasma Gun
+35	Plasma Cannon
+36	Energy Hammer
+37	Jackhammer
+38	Flak Cannon
+39	Golden Revolver
+40	Golden Wrench
+41	Golden Machinegun
+42	Golden Shotgun
+43	Golden Crossbow
+44	Golden Grenade Launcer
+45	Golden Laser Pistol
+46	Chicken Sword
+47	Nuke Launcher
+48	Ion Cannon
+49	Quadruple Machinegun
+50	Flamethrower
+51	Dragon
+52	Flare Gun
+53	Energy Screwdriver
+54	Hyper Launcher
+55	Laser Cannon
+56	Rusty Revolver
+57	Lightning Pistol
+58	Lightning Rifle
+59	Lightning Shotgun
+60	Super Flak Cannon
+61	Sawed-off Shotgun
+62	Splinter Pistol
+63	Super Splinter Gun
+64	Lighting SMG
+65	Smart Gun
+66	Heavy Crossbow
+67	Blood Hammer
+68	Lightning Cannon
+69	Pop Gun
+70	Plasma Rifle
+71	Pop Rifle
+72	Toxic Launcher
+73	Flame Cannon
+74	Lightning Hammer
+75	Flame Shotgun
+76	Double Flame Shotgun
+77	Auto Flame Shotgun
+78	Cluster Launcher
+79	Grenade Shotgun
+80	Grenade Rifle
+81	Rogue Rifle
+82	Party Gun
+83	Double Minigun
+84	Gatling Bazooka
+85	Auto Grenade Shotgun
+86	Ultra Revolver
+87	Ultra Laser Pistol
+88	Sledgehammer
+89	Heavy Revolver
+90	Heavy Machinegun
+91	Heavy Slugger
+92	Ultra Shovel
+93	Ultra Shotgun
+94	Ultra Crossbow
+95	Ultra Grenade Launcher
+96	Plasma Minigun
+97	Devastator
+98	Golden Plasma Gun
+99	Golden Slugger
+100	Golden Splinter Gun
+101	Golden Screwdriver
+102	Golden Bazooka
+103	Golden Assault Rifle
+104	Super Disc Gun
+105	Heavy Auto Crossbow
+106	Heavy Assault Rifle
+107	Blood Cannon
+108	Dog Spin Attack
+109	Dog Missile
+110	Incinerator
+111	Super Plasma Cannon
+112	Seeker Pistol
+113	Seeker Shotgun
+114	Eraser
+115	Guitar
+116	Bouncer SMG
+117	Bouncer Shotgun
+118	Hyper Slugger
+119	Super Bazooka
+120	Frog Pistol
+121	Black Sword
+122	Golden Nuke Launcher
+123	Golden Disc Gun
+124	Heavy Grenade Launcher
+125	Gun Gun
+201	Golden Frog Pistol
