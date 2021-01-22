@@ -1,7 +1,7 @@
 # n00blearThrone
 Description
 
-Info about the stream key been taken from [NT Fandom Wiki](https://nuclear-throne.fandom.com/wiki/Stream_Keys)
+Info about the stream key has been taken from [NT Fandom Wiki](https://nuclear-throne.fandom.com/wiki/Stream_Keys)
 
 # ToDo
 * Finish NTCONST and add all "decoders" for the json string
