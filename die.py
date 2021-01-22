@@ -4,6 +4,7 @@ Created on Thu Jan 21 18:05:18 2021
 
 @author: 4Null
 """
+import os
 import NTCONST
 import requests
 import numpy as np
@@ -11,33 +12,25 @@ import numpy as np
 def recordRun(): #write previous run to file, csv format
     
     time = np.loadtxt("output/history.txt", delimiter=",", dtype=str)
-    if not (previousRun["timestamp"] == int(time.T[0][-1])):      
+    if os.stat("output/history.txt").st_size==0 or not (previousRun["timestamp"] == int(time.T[0][-1])): #os.stat("output/history.txt").st_size==0 falls das history file leer ist
         file = open("output/history.txt","a")
-        file.write(
-                "\n" + 
-                str(previousRun["timestamp"]) + "," +
-                str(NTCONST.getCharacter(previousRun["char"])) + "," +
-                str(previousRun["charlvl"]) + "," +
-                str(previousRun["crown"]) + "," + 
-                str(previousRun["health"]) + "," +
-                str(previousRun["kills"]) + "," +
-                str(previousRun["lasthit"]) + "," +
-                str(previousRun["level"]) + "," +
-                str(previousRun["loops"]) + "," +
-                str(previousRun["mutations"]) + "," +
-                str(previousRun["skin"]) + "," +
-                str(previousRun["type"]) + "," +
-                str(previousRun["ultra"]) + "," +
-                str(previousRun["wepA"]) + "," +
-                str(previousRun["wepB"]) + "," +
-                str(previousRun["win"]) + "," +
-                str(previousRun["world"])            
-                )
+        
+        variables = ["timestamp","char","charlvl","crown","health","kills","lasthit","level","loops","mutations","skin","type","ultra","wepA","wepB","win","world"]
+        write_string = ",".join([str(previousRun[_]) for _ in variables])
+        file.write("\n"+ write_string)
+
         #timestamp,char,charlvl,crown,health,kills,lasthit,level,loops,mutations,
         #skin,type,ultra,wepA,wepB,win,world
         file.close()
 
+<<<<<<< HEAD
 jsonFormat = requests.get(NTCONST.getStreamlink()).json()
+=======
+r = requests.get('https://tb-api.xyz/stream/get?s=76561198071542817&key=CKPRSTVW4')
+jsonFormat = r.json()
+
+#print(jsonFormat["charlvl"])
+>>>>>>> a18023241141f66712c8067ef2e4471efeb76d61
 
 currentRun = jsonFormat["current"]
 previousRun = jsonFormat["previous"]
