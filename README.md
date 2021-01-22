@@ -15,3 +15,4 @@ Info about the stream key has been taken from [NT Fandom Wiki](https://nuclear-t
 ## ToDo (maybe)
 * Add GUI with live update
 * add evaluation of logfile in python, so the user doesnt have to use excel or similar
+* Discord Bot implementation - statistics, user averages, recent run info, run shaming and more!
