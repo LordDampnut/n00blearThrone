@@ -37,7 +37,7 @@ def getWorld(n):
     return world[i][0]
 
 def getCrown(n):
-    return crown[n+1][1]
+    return crown[n-1][1]
 
 def getGuns(n):
     return guns[n][1]
