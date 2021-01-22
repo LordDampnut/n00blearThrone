@@ -37,10 +37,7 @@ def recordRun(): #write previous run to file, csv format
         #skin,type,ultra,wepA,wepB,win,world
         file.close()
 
-r = requests.get('https://tb-api.xyz/stream/get?s=76561198041682918&key=BFGJLMYZ6')
-jsonFormat = r.json()
-
-#print(jsonFormat["charlvl"])
+jsonFormat = requests.get(NTCONST.getStreamlink()).json()
 
 currentRun = jsonFormat["current"]
 previousRun = jsonFormat["previous"]
