@@ -1,6 +1,11 @@
 # n00blearThrone
 Description
 
+nooblearThrone is a WIP tool to track you failing ingame.
+Everytime you die an entry in the logfile is created.
+After many horrible deaths to maggots or little hunter this file can then be used to create a statistic how much you suck with each character, weapon and mutation.
+If you then interpret the data you probably wont suck less at playing the game.
+
 Info about the stream key has been taken from [NT Fandom Wiki](https://nuclear-throne.fandom.com/wiki/Stream_Keys)
 
 # ToDo
