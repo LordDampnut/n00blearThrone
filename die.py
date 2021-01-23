@@ -5,30 +5,39 @@ Created on Thu Jan 21 18:05:18 2021
 @author: 4Null
 """
 import os
+import json
 import NTCONST
 import requests
 import numpy as np
 
-def recordRun(): #write previous run to file, csv format
-    
-    time = np.loadtxt("output/history.txt", delimiter=",", dtype=str)
-    if os.stat("output/history.txt").st_size==0 or not (previousRun["timestamp"] == int(time.T[0][-1])): #os.stat("output/history.txt").st_size==0 falls das history file leer ist
-        file = open("output/history.txt","a")
-        
-        variables = ["timestamp","char","charlvl","crown","health","kills","lasthit","level","loops","mutations","skin","type","ultra","wepA","wepB","win","world"]
-        write_string = ",".join([str(previousRun[_]) for _ in variables])
-        file.write("\n"+ write_string)
+parameters = ["char","charlvl","crown","health","kills","lasthit","level","loops","mutations","skin","type","ultra","wepA","wepB","win","world"]
+#timestamp,char,charlvl,crown,health,kills,lasthit,level,loops,mutations,
+#skin,type,ultra,wepA,wepB,win,world	
 
-        #timestamp,char,charlvl,crown,health,kills,lasthit,level,loops,mutations,
-        #skin,type,ultra,wepA,wepB,win,world
-        file.close()
+def API_get():
+	jsonFormat = requests.get(NTCONST.getStreamlink()).json()
+	return jsonFormat,jsonFormat["current"],jsonFormat["previous"]
 
+def UpdateRuns():
+	"""
+	Input: None
+	Output: None
+	Saves the runs currently diplayed by the nt API to the json file.
+	If the API displays a run that has previously been saved it overwrites it with the more recent version of the run.
+	Individual runs are identified by their timestamps.
+	"""
+	jsonFormat,currentRun,previousRun = API_get()
+	
+    with open("output/history.json","a") as jsonfile:
+		history_dict = json.load(jsonfile)
+		if bool (currentRun):	
+			history_dict[str(previousRun("timestamp"))] = {variable : str(previousRun[_]) for _ in variables}
+			
+		elif bool (previousRun):
+			history_dict[str(currentRun("timestamp"))] = {variable : str(currentRun[_]) for _ in variables}
+		json.dump(history_dict,jsonfile)
 
-jsonFormat = requests.get(NTCONST.getStreamlink()).json()
-
-
-currentRun = jsonFormat["current"]
-previousRun = jsonFormat["previous"]
+jsonFormat,currentRun,previousRun = API_get()
 
 if  bool (currentRun):
     key = "current"
