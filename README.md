@@ -14,6 +14,7 @@ Info about the stream key has been taken from [NT Fandom Wiki](https://nuclear-t
 * reformat console output to f-string and add more values
 * stream key from file so the user doesnt have to edit the .py file
 * convert character variable from hardcoded list to file and read the file
+* Add retrun value if streamlink.txt is empty to NTCONST.getStreamlink()
 * and more!
 
 
