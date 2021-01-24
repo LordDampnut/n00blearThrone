@@ -27,13 +27,20 @@ def update_runs(jsonFormat,currentRun,previousRun):
     If the API displays a run that has previously been saved it overwrites it with the more recent version of the run.
     Individual runs are identified by their timestamps.
     """
+    if not os.path.exists("output/history.json"):
+        with open("output/history.json", 'w') as jsonfile: pass #if file does not exist, create file
+        
+    if os.path.getsize("output/history.json") == 0: #if file is empty, dump current run to file
+        with open("output/history.json","w") as jsonfile:
+            json.dump({},jsonfile)
+        
     with open("output/history.json","r") as jsonfile:
         history_dict = json.load(jsonfile)
         if bool (currentRun):
             history_dict[str(currentRun["timestamp"])] = {_ : str(currentRun[_]) for _ in parameters}
         elif bool(previousRun):
             history_dict[str(previousRun["timestamp"])] = {_ : str(previousRun[_]) for _ in parameters}
-            
+
     with open("output/history.json","w") as jsonfile:
         json.dump(history_dict,jsonfile)
 
@@ -44,7 +51,7 @@ def continuous_update(interval):
     Fetches the current API output saves it to history.json
     and puts the API output to the console 
     """
-    current_run_ts = None
+    current_run_ts = None #current run timestamp
     loop_condition = True
     while loop_condition:
         time.sleep(interval) #aktualisiert alle {interval} sekunden
@@ -60,6 +67,7 @@ def continuous_update(interval):
         if not bool(currentRun):
             key="previous"
         if bool(jsonFormat[key]):
+            os.system("cls") #clear console output before writing again
             print("World:\t\t" + NTCONST.getWorld(jsonFormat[key]["world"]) + " - " + str(jsonFormat[key]["level"]))
             print("Chacacter:\t" + NTCONST.getCharacter(jsonFormat[key]["char"]) + " Lv: " + str(jsonFormat[key]["charlvl"]))
             print("Weapons:\t" + NTCONST.getGuns(jsonFormat[key]["wepA"]) + " - " + NTCONST.getGuns(jsonFormat[key]["wepB"]))
@@ -73,7 +81,7 @@ def continuous_update(interval):
             else:
                 print("Last hit:\t" + NTCONST.getLastHitEnemy(jsonFormat[key]["lasthit"]))
 			
-if __name__ == "__main__": 
+if __name__ == "__main__":
 #macht dass das folgende nur ausgefuehrt wird wenn die.py direkt ausgefuehrt wird
 #so kann man z.B. API_get woanders importieren
 
