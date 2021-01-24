@@ -35,15 +35,18 @@ SteamID = split2[0]
 
 
 #Assemble API link from entries in linkChange window and write into file
-def writeStreamlink():
+def writeStreamlink(IDChangeEntry, KeyChangeEntry):
+	SteamID = IDChangeEntry.get()
+	Streamkey = KeyChangeEntry.get()
 	print("Debug: init of writeStreamlink()")
 	apilink = "https://tb-api.xyz/stream/get?s=" + SteamID + "&key=" + Streamkey
+	print("Debug: Streamlink is " + apilink)
+	root.update()
 
 
 #functions
 def functionAPIlink():
 
-	#messagebox.showinfo("Hi", "This is where you could change the link if i was any competent lol")
 	#make new window
 	linkChange = tk.Toplevel(root)
 	linkChange.title("Change API Info")
@@ -74,7 +77,7 @@ def functionAPIlink():
 	KeyChangeEntry.insert(0, Streamkey)
 	KeyChangeEntry.pack(padx=5, pady=5)
 
-	linkChangebutton = tk.Button(linkChange, text = "Confirm and Close", command = lambda:[writeStreamlink(),linkChange.destroy()])
+	linkChangebutton = tk.Button(linkChange, text = "Confirm and Close", command = lambda:[writeStreamlink(IDChangeEntry, KeyChangeEntry),linkChange.destroy()])
 	linkChangebutton.pack()
 	
 
@@ -83,19 +86,28 @@ def functionAPIlink():
 root = tk.Tk()
 root.geometry("500x150")
 root.title("Nuclear Throne Thing")
-### ADD UI STUFF HERE ###
-mainframe = tk.Frame(root, width = 30)
-mainframe.pack(padx=5, pady=5)
 
-tk.Label(mainframe, text = "Steam ID: " + SteamID).pack()
-tk.Label(mainframe, text = "Stream Key:" + Streamkey).pack()
+for i in range(3):
+    root.columnconfigure(i, weight=1)
+
+root.rowconfigure(1, weight=1)
+
+### ADD UI STUFF HERE ###
+mainframe = tk.Frame(root, width = 300, borderwidth=2, relief="groove")
+
+#Info about SteamID and StreamKey + button to change them
+tk.Label(mainframe, text = "Steam ID: " + SteamID).grid(column = 1)
+tk.Label(mainframe, text = "Stream Key: " + Streamkey).grid(column = 1)
 buttonAPIlink = tk.Button(mainframe, text = "Change", command = functionAPIlink)
-buttonAPIlink.pack(side=tk.RIGHT)
+buttonAPIlink.grid(column = 2, padx = 5, pady = 5)
+mainframe.grid(column = 1, columnspan = 2, padx=5, pady=5)
+#Info Panel about current run
+
 
 
 #button to close program
 exitbutton = tk.Button(root, text ="close", command = exit)
-exitbutton.pack()
+exitbutton.grid(column = 1, row = 2, pady = 5, padx = 20)
 
 ############### MAIN WINDOW END ####################
 
