@@ -62,7 +62,7 @@ def continuous_update(interval):
         if bool(jsonFormat[key]):
             os.system("cls") #clear console output before writing again
             print("World:\t\t" + NTCONST.getWorld(jsonFormat[key]["world"]) + " - " + str(jsonFormat[key]["level"]))
-            print("Chacacter:\t" + NTCONST.getCharacter(jsonFormat[key]["char"]) + " Lv: " + str(jsonFormat[key]["charlvl"]))
+            print("Character:\t" + NTCONST.getCharacter(jsonFormat[key]["char"]) + " Lv: " + str(jsonFormat[key]["charlvl"]))
             print("Weapons:\t" + NTCONST.getGuns(jsonFormat[key]["wepA"]) + " - " + NTCONST.getGuns(jsonFormat[key]["wepB"]))
             print("Crown:\t\t" + NTCONST.getCrown(jsonFormat[key]["crown"]))
             print("Loop:\t\tL" + str(jsonFormat[key]["loops"]))
