@@ -1,1 +1,1 @@
-https://tb-api.xyz/stream/get?s=76561198071542817&key=CKPRSTVW4
+https://tb-api.xyz/stream/get?s=76561198126315242&key=GHMNSTZ64
