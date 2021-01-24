@@ -26,14 +26,7 @@ def update_runs(jsonFormat,currentRun,previousRun):
     Saves the runs currently diplayed by the nt API to the json file.
     If the API displays a run that has previously been saved it overwrites it with the more recent version of the run.
     Individual runs are identified by their timestamps.
-    """
-    if not os.path.exists("output/history.json"):
-        with open("output/history.json", 'w') as jsonfile: pass #if file does not exist, create file
-        
-    if os.path.getsize("output/history.json") == 0: #if file is empty, dump current run to file
-        with open("output/history.json","w") as jsonfile:
-            json.dump({},jsonfile)
-        
+    """        
     with open("output/history.json","r") as jsonfile:
         history_dict = json.load(jsonfile)
         if bool (currentRun):
@@ -84,6 +77,11 @@ def continuous_update(interval):
 if __name__ == "__main__":
 #macht dass das folgende nur ausgefuehrt wird wenn die.py direkt ausgefuehrt wird
 #so kann man z.B. API_get woanders importieren
+    if not os.path.exists("output/history.json"):
+        with open("output/history.json", 'w') as jsonfile: pass #if file does not exist, create file
+        
+    if os.path.getsize("output/history.json") == 0: #if file is empty, dump current run to file
+        with open("output/history.json","w") as jsonfile:
+            json.dump({},jsonfile)
 
-	continuous_update(5) #update every five seconds
-
+    continuous_update(5) #update every five seconds
