@@ -1,5 +1,7 @@
 import numpy
 import die #lol same bro
+from NTCONST import world
+world_ids = [world_item[0] for world_item in world]
 history_dict={}
 
 def get_history_dict():
@@ -11,11 +13,18 @@ def get_history_dict():
 
 
 def get_average_kills(history_dict=history_dict):
-    average_kills = False #TODO calculate from history dictionary
+    average_kills = avg([run["kills"]for timestamp,run in history_dict.items()]) #calculate average kills from history dictionary
     return average_kills
 
 def get_death_probabilities(history_dict=history_dict)
-    death_probabilities = False #TODO see above
+    death_probabilities = {f"{world}-{level}" :
+                            (sum([run["world"]==world and run["level"] ==level for run in history_dict.values()])/len(history_dict.values()))
+                            for world in world_ids for level in [1,2,3]}#(times_you_died_in_this_level / time_you_died_ever) for each level
+    """
+    TODO
+    -what level is the api displaying in secret worlds?
+    -do the levels start at 0 or at 1?
+    """
     return death_probabilities
     
 def get_from_history(*args)
@@ -38,3 +47,4 @@ def get_from_history(*args)
 
 if __name__ == "__main__":
     history_dict = get_history()
+    average_kills,death_probabilities = get_from_history("average_kills","death_probabilities")
