@@ -55,7 +55,7 @@ def continuous_update(interval):
         key="current"
         if not bool(currentRun):
             key="previous"
-        if :
+        if bool(jsonFormat[key]):
             os.system("cls") #clear console output before writing again
             print("World:\t\t" + NTCONST.getWorld(jsonFormat[key]["world"]) + " - " + str(jsonFormat[key]["level"]))
             print("Character:\t" + NTCONST.getCharacter(jsonFormat[key]["char"]) + " Lv: " + str(jsonFormat[key]["charlvl"]))
