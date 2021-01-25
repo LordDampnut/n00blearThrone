@@ -47,5 +47,5 @@ def get_from_history(*args)
 
 
 if __name__ == "__main__":
-    history_dict = get_history()
+    history_dict = get_history_dict()
     average_kills,death_probabilities = get_from_history("average_kills","death_probabilities")
