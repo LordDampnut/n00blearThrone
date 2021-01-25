@@ -51,15 +51,11 @@ def continuous_update(interval):
         
         jsonFormat,currentRun,previousRun = API_get() #gets current API output
         update_runs(jsonFormat,currentRun,previousRun) #history.json update
-        
-        if not bool (currentRun) and not bool (previousRun):
-            print("No current or previous run detected!")
-            #loop_condition=False #koennte man machen
             
         key="current"
         if not bool(currentRun):
             key="previous"
-        if bool(jsonFormat[key]):
+        if :
             os.system("cls") #clear console output before writing again
             print("World:\t\t" + NTCONST.getWorld(jsonFormat[key]["world"]) + " - " + str(jsonFormat[key]["level"]))
             print("Character:\t" + NTCONST.getCharacter(jsonFormat[key]["char"]) + " Lv: " + str(jsonFormat[key]["charlvl"]))
@@ -73,12 +69,49 @@ def continuous_update(interval):
                 current_run_ts = currentRun["timestamp"]
             else:
                 print("Last hit:\t" + NTCONST.getLastHitEnemy(jsonFormat[key]["lasthit"]))
-			
+				
+		elif not bool(jsonFormat[key]): #if there is no current or previous run
+			print("No current or previous run detected!")
+	
+
+current_run_ts = None #current run timestamp for returning function
+def return_api_str():
+    """
+    Input: None
+    Output: the current CONVERTED! API output, so the actual string like "Crown of Guns"
+    [world, character, character_level, weapon_A, waepon_B, crown, loops, kills]
+    or if no run is currently displayed by the API
+    [None,None,None,None,None,None,None,None] 
+    """
+	jsonFormat,currentRun,previousRun = API_get() #gets current API output
+	update_runs(jsonFormat,currentRun,previousRun) #history.json update
+	
+	if not bool (currentRun) and not bool (previousRun):
+		print("No current or previous run detected!")
+		#loop_condition=False #koennte man machen
+
+		
+	key="current" #gives out the current run
+	if not bool(currentRun):
+		key="previous" #or if there is no current run, the previous run
+	if bool(jsonFormat[key]):
+		return [NTCONST.getWorld(jsonFormat[key]["world"]),	    #world
+		        NTCONST.getCharacter(jsonFormat[key]['char']),  #character 
+                jsonFormat[key]['charlvl'],                     #character level
+                NTCONST.getGuns(jsonFormat[key]["wepA"]),       #weapon A
+                NTCONST.getGuns(jsonFormat[key]["wepB"]),       #waepon B
+                NTCONST.getCrown(jsonFormat[key]["crown"]),     #crown
+                jsonFormat[key]["loops"],                       #loops
+                jsonFormat[key]["kills"]]                       #kill count
+	elif not bool(jsonFormat[key]): #if there is no current or previous run
+		return [None for _ in range(8)]
+		
+				
 if __name__ == "__main__":
 #macht dass das folgende nur ausgefuehrt wird wenn die.py direkt ausgefuehrt wird
 #so kann man z.B. API_get woanders importieren
     if not os.path.exists("output/history.json"):
-        with open("output/history.json", 'w') as jsonfile: pass #if file does not exist, create file
+        with open("output/history.json", 'x') as jsonfile: pass #if file does not exist, create file
         
     if os.path.getsize("output/history.json") == 0: #if file is empty, dump current run to file
         with open("output/history.json","w") as jsonfile:
