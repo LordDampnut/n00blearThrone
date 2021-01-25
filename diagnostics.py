@@ -17,9 +17,10 @@ def get_average_kills(history_dict=history_dict):
     return average_kills
 
 def get_death_probabilities(history_dict=history_dict)
+    #A monstrous one-liner that creates a dictionary
     death_probabilities = {f"{world}-{level}" :
-                            (sum([run["world"]==world and run["level"] ==level for run in history_dict.values()])/len(history_dict.values()))
-                            for world in world_ids for level in [1,2,3]}#(times_you_died_in_this_level / time_you_died_ever) for each level
+                            (sum([bool(run["world"]==world_id and run["level"]==level) for run in history_dict.values()])/len(history_dict.values()))
+                            for world_id in world_ids for level in [1,2,3]}#(times_you_died_in_this_level / time_you_died_ever) for each level
     """
     TODO
     -what level is the api displaying in secret worlds?
