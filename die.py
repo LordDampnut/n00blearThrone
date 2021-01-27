@@ -14,10 +14,20 @@ import numpy as np
 
 parameters = ["char", "charlvl", "crown", "health", "kills", "lasthit", "level", "loops", "mutations", "skin", "type",
               "ultra", "wepA", "wepB", "win", "world"]
-
-
 # timestamp,char,charlvl,crown,health,kills,lasthit,level,loops,mutations,
 # skin,type,ultra,wepA,wepB,win,world
+
+
+def assert_history_file():
+    # macht dass das folgende nur ausgefuehrt wird wenn die.py direkt ausgefuehrt wird
+    # so kann man z.B. API_get woanders importieren
+    if not os.path.exists("output/history.json"):
+        with open("output/history.json", 'x') as jsonfile: pass  # if file does not exist, create file
+
+    if os.path.getsize("output/history.json") == 0:  # if file is empty, dump current run to file
+        with open("output/history.json", "w") as jsonfile:
+            json.dump({}, jsonfile)
+
 
 def API_get():
     jsonFormat = requests.get(NTCONST.getStreamlink()).json()
@@ -115,15 +125,7 @@ def return_api_str():
         return [None for _ in range(8)]
 
 
-if __name__ == "__main__":
-    # macht dass das folgende nur ausgefuehrt wird wenn die.py direkt ausgefuehrt wird
-    # so kann man z.B. API_get woanders importieren
-    if not os.path.exists("output/history.json"):
-        with open("output/history.json", 'x') as jsonfile: pass  # if file does not exist, create file
 
-    if os.path.getsize("output/history.json") == 0:  # if file is empty, dump current run to file
-        with open("output/history.json", "w") as jsonfile:
-            json.dump({}, jsonfile)
-
-    #continuous_update(5)  # update every five seconds
-    input(return_api_str())
+assert_history_file() # check if the history.json exists
+if __name__ == "__main__": 
+    continuous_update(5)  # update every five seconds
