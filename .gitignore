@@ -3,3 +3,4 @@ output/*
 __pycache__
 .spyproject
 streamlink.txt
+.idea/*
