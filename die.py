@@ -99,10 +99,6 @@ def return_api_str():
     jsonFormat, currentRun, previousRun = API_get()  # gets current API output
     update_runs(jsonFormat, currentRun, previousRun)  # history.json update
 
-    if not bool(currentRun) and not bool(previousRun):
-        print("No current or previous run detected!")
-        # loop_condition=False #koennte man machen
-
     key = "current"  # gives out the current run
     if not bool(currentRun):
         key = "previous"  # or if there is no current run, the previous run
@@ -115,7 +111,7 @@ def return_api_str():
                 NTCONST.getCrown(jsonFormat[key]["crown"]),  # crown
                 jsonFormat[key]["loops"],  # loops
                 jsonFormat[key]["kills"]]  # kill count
-    elif not bool(jsonFormat[key]):  # if there is no current or previous run
+    elif not bool(currentRun) and not bool(previousRun):  # if there is no current or previous run
         return [None for _ in range(8)]
 
 
@@ -129,4 +125,5 @@ if __name__ == "__main__":
         with open("output/history.json", "w") as jsonfile:
             json.dump({}, jsonfile)
 
-    continuous_update(5)  # update every five seconds
+    #continuous_update(5)  # update every five seconds
+    input(return_api_str())
