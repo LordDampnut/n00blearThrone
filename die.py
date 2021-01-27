@@ -14,10 +14,20 @@ import numpy as np
 
 parameters = ["char", "charlvl", "crown", "health", "kills", "lasthit", "level", "loops", "mutations", "skin", "type",
               "ultra", "wepA", "wepB", "win", "world"]
-
-
 # timestamp,char,charlvl,crown,health,kills,lasthit,level,loops,mutations,
 # skin,type,ultra,wepA,wepB,win,world
+
+
+def assert_history_file():
+    # macht dass das folgende nur ausgefuehrt wird wenn die.py direkt ausgefuehrt wird
+    # so kann man z.B. API_get woanders importieren
+    if not os.path.exists("output/history.json"):
+        with open("output/history.json", 'x') as jsonfile: pass  # if file does not exist, create file
+
+    if os.path.getsize("output/history.json") == 0:  # if file is empty, dump current run to file
+        with open("output/history.json", "w") as jsonfile:
+            json.dump({}, jsonfile)
+
 
 def API_get():
     jsonFormat = requests.get(NTCONST.getStreamlink()).json()
@@ -99,34 +109,17 @@ def return_api_str():
     jsonFormat, currentRun, previousRun = API_get()  # gets current API output
     update_runs(jsonFormat, currentRun, previousRun)  # history.json update
 
-    if not bool(currentRun) and not bool(previousRun):
-        print("No current or previous run detected!")
-        # loop_condition=False #koennte man machen
-
     key = "current"  # gives out the current run
     if not bool(currentRun):
         key = "previous"  # or if there is no current run, the previous run
     if bool(jsonFormat[key]):
-        return [NTCONST.getWorld(jsonFormat[key]["world"]),  # world
-                NTCONST.getCharacter(jsonFormat[key]['char']),  # character
-                jsonFormat[key]['charlvl'],  # character level
-                NTCONST.getGuns(jsonFormat[key]["wepA"]),  # weapon A
-                NTCONST.getGuns(jsonFormat[key]["wepB"]),  # waepon B
-                NTCONST.getCrown(jsonFormat[key]["crown"]),  # crown
-                jsonFormat[key]["loops"],  # loops
-                jsonFormat[key]["kills"]]  # kill count
-    elif not bool(jsonFormat[key]):  # if there is no current or previous run
-        return [None for _ in range(8)]
+        return [jsonFormat[key][parameter] for parameter in parameters]  # kill count
+		
+    elif not bool(currentRun) and not bool(previousRun):  # if there is no current or previous run
+        return [None for _ in parameters]
 
 
-if __name__ == "__main__":
-    # macht dass das folgende nur ausgefuehrt wird wenn die.py direkt ausgefuehrt wird
-    # so kann man z.B. API_get woanders importieren
-    if not os.path.exists("output/history.json"):
-        with open("output/history.json", 'x') as jsonfile: pass  # if file does not exist, create file
 
-    if os.path.getsize("output/history.json") == 0:  # if file is empty, dump current run to file
-        with open("output/history.json", "w") as jsonfile:
-            json.dump({}, jsonfile)
-
+assert_history_file() # check if the history.json exists
+if __name__ == "__main__": 
     continuous_update(5)  # update every five seconds

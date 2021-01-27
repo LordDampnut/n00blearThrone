@@ -48,3 +48,8 @@ def getCrown(n):
 
 def getGuns(n):
     return guns[n][1]
+
+
+def writelink(streamlink):
+    file = open("streamlink.txt", "w")
+    file.write(streamlink)
