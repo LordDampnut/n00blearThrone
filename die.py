@@ -113,16 +113,10 @@ def return_api_str():
     if not bool(currentRun):
         key = "previous"  # or if there is no current run, the previous run
     if bool(jsonFormat[key]):
-        return [NTCONST.getWorld(jsonFormat[key]["world"]),  # world
-                NTCONST.getCharacter(jsonFormat[key]['char']),  # character
-                jsonFormat[key]['charlvl'],  # character level
-                NTCONST.getGuns(jsonFormat[key]["wepA"]),  # weapon A
-                NTCONST.getGuns(jsonFormat[key]["wepB"]),  # waepon B
-                NTCONST.getCrown(jsonFormat[key]["crown"]),  # crown
-                jsonFormat[key]["loops"],  # loops
-                jsonFormat[key]["kills"]]  # kill count
+        return [jsonFormat[key][parameter] for parameter in parameters]  # kill count
+		
     elif not bool(currentRun) and not bool(previousRun):  # if there is no current or previous run
-        return [None for _ in range(8)]
+        return [None for _ in parameters]
 
 
 
