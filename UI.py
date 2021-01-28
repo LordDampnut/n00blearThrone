@@ -10,20 +10,89 @@ import os
 import NTCONST
 import requests
 import numpy as np
+import die
+import diagnostics as diag
 
 class InfoPanel:
 	def __init__(self, parent):
-		self.seconds = 0
 
-		self.TimeLabel = tk.Label(parent, text = "0 s")
-		self.TimeLabel.grid(column = 1)
+		self.InfoPanel = tk.Frame(parent, padx=5, pady=5)
+	
+		self.CharLabel = tk.Label(self.InfoPanel, text="Character: ")
+		self.HealthLabel = tk.Label(self.InfoPanel, text="Health: ")
+		self.LevelLabel = tk.Label(self.InfoPanel, text="Level:")
+		self.GunLabel = tk.Label(self.InfoPanel, text="Guns: ")
+		self.WorldLabel = tk.Label(self.InfoPanel, text = "World: 0-0 L0")
+		self.EnemyLabel = tk.Label(self.InfoPanel, text="Last hit by: ")
+		self.CrownLabel = tk.Label(self.InfoPanel, text="Crown: ")
+		self.KillLabel = tk.Label(self.InfoPanel, text="Kills: ")
+		self.MutationLabel = tk.Label(self.InfoPanel, text="Mutations: ")
+		self.DeathPanel = tk.Label(self.InfoPanel, text="Probability of Death in this level: ")
 
-		self.TimeLabel.after(1000, self.refresh_InfoPanel)
+		self.InfoPanel.grid()
+
+		self.CharLabel.grid()
+		self.HealthLabel.grid()
+		self.LevelLabel.grid()
+		self.GunLabel.grid()
+		self.WorldLabel.grid()
+		self.EnemyLabel.grid()
+		self.CrownLabel.grid()
+		self.KillLabel.grid()
+		self.MutationLabel.grid()
+		self.DeathPanel.grid()
+
+		self.InfoPanel.after(1000, self.refresh_InfoPanel)
 
 	def refresh_InfoPanel(self):
-		self.seconds += 1
-		self.TimeLabel.configure(text = "%i s" % self.seconds)
-		self.TimeLabel.after(1000, self.refresh_InfoPanel)
+		self.char, self.charlvl, self.crown, self.health, self.kills, self.lasthit, self.level, self.loops, self.mutations,\
+		self.skin, self.type, self.ultra, self.gun1, self.gun2, self.win, self.world = die.return_api_str()
+		
+		#"char", "charlvl", "crown", "health", "kills", "lasthit", "level", "loops", "mutations", "skin", "type",
+        #"ultra", "wepA", "wepB", "win", "world"
+
+
+		#Debug to see if thing actually loaded
+		"""
+		if self.world:
+			#os.system("cls")
+			print("Check")
+		"""
+		
+		#set max health according to characters
+		if(self.char == 2):
+			self.Maxhealth = 10
+		elif(self.char == 4):
+			self.Maxhealth = 2
+		elif(self.char == 13):
+			self.Maxhealth = 6
+		else:
+			self.Maxhealth = 8
+		#assemble health string
+		self.health = "%i / %i" % (self.health, self.Maxhealth)
+
+		#Skin
+		if(self.skin):
+			self.skin = 'B'
+		else:
+			self.skin = 'A'
+
+		#Worldstring
+		self.worldstring = "World: %i-%i L%i" %(self.world, self.level, self.loops)
+
+		#update all the labels
+		self.CharLabel.configure(text="Character: " + NTCONST.getCharacter(self.char) +" "+ self.skin + "-Skin")
+		self.HealthLabel.configure(text="Health: " + self.health)
+		self.LevelLabel.configure(text="Level: %i" % self.charlvl)
+		self.GunLabel.configure(text="Guns: " + NTCONST.getGuns(self.gun1) + ", " +NTCONST.getGuns(self.gun2))
+		self.WorldLabel.configure(text= self.worldstring)
+		self.EnemyLabel.configure(text="Last hit by: " + NTCONST.getLastHitEnemy(self.lasthit))
+		self.CrownLabel.configure(text="Crown: " + NTCONST.getCrown(self.crown))
+		self.KillLabel.configure(text="Kills: %i" % self.kills)
+		self.MutationLabel.configure(text="Mutations: ")
+		#self.DeathPanel.configure(text=f" Death probabllity: {(diag.get_death_probabilities()*100):.1f}" )
+
+		self.InfoPanel.after(1000, self.refresh_InfoPanel)
 
 
 if __name__ == "__main__":
@@ -48,18 +117,18 @@ if __name__ == "__main__":
 	split2 = split[1].split('&')
 	SteamID = split2[0]
 
+	# functions
 
 	# Assemble API link from entries in linkChange window and write into file
-	def writeStreamlink(IDChangeEntry, KeyChangeEntry):
-	    SteamID = IDChangeEntry.get()
-	    Streamkey = KeyChangeEntry.get()
-	    print("Debug: init of writeStreamlink()")
-	    apilink = "https://tb-api.xyz/stream/get?s=" + SteamID + "&key=" + Streamkey
-	    print("Debug: Streamlink is " + apilink)
-	    root.update()
+	def writeStreamlink(IDChangeEntry, KeyChangeEntry, root):
+		SteamID = IDChangeEntry.get()
+		Streamkey = KeyChangeEntry.get()
+		print("Debug: init of writeStreamlink()")
+		apilink = "https://tb-api.xyz/stream/get?s=" + SteamID + "&key=" + Streamkey
+		print("Debug: Streamlink is " + apilink)
+		NTCONST.writelink(apilink)
+		root.update()
 
-
-	# functions
 	def functionAPIlink():
 	    # make new window
 	    linkChange = tk.Toplevel(root)
@@ -92,7 +161,7 @@ if __name__ == "__main__":
 	    KeyChangeEntry.pack(padx=5, pady=5)
 
 	    linkChangebutton = tk.Button(linkChange, text="Confirm and Close",
-	                                 command=lambda: [writeStreamlink(IDChangeEntry, KeyChangeEntry), linkChange.destroy()])
+	                                 command=lambda: [writeStreamlink(IDChangeEntry, KeyChangeEntry, root), linkChange.destroy()])
 	    linkChangebutton.pack()
 
 
@@ -100,7 +169,7 @@ if __name__ == "__main__":
 	############### MAIN WINDOW #################################
 	# make Main window
 	root = tk.Tk()
-	root.geometry("500x150")
+	root.geometry("500x450")
 	root.title("Nuclear Throne Thing")
 
 	for i in range(3):
@@ -119,7 +188,7 @@ if __name__ == "__main__":
 	mainframe.grid(column=1, columnspan=2, padx=5, pady=5)
 	# Info Panel about current run
 
-	infoPanel = InfoPanel(root)
+	InfoPanel = InfoPanel(root)
 
 
 	# button to close program
