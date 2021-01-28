@@ -14,6 +14,8 @@ import numpy as np
 
 parameters = ["char", "charlvl", "crown", "health", "kills", "lasthit", "level", "loops", "mutations", "skin", "type",
               "ultra", "wepA", "wepB", "win", "world"]
+
+
 # timestamp,char,charlvl,crown,health,kills,lasthit,level,loops,mutations,
 # skin,type,ultra,wepA,wepB,win,world
 
@@ -76,7 +78,7 @@ def continuous_update(interval):
             print("World:\t\t" + NTCONST.getWorld(jsonFormat[key]["world"]) + " - " + str(jsonFormat[key]["level"]))
             current_death_prob = diagnostics.get_from_history('death_probabilities')[
                 f"{jsonFormat[key]['world']}-{jsonFormat[key]['level']}-{jsonFormat[key]['loops']}"]
-            print(f"Probability of dying here is {(current_death_prob*100):.1f} %")
+            print(f"Probability of dying here is {(current_death_prob * 100):.1f} %")
             print("Character:\t" + NTCONST.getCharacter(jsonFormat[key]["char"]) + " Lv: " + str(
                 jsonFormat[key]["charlvl"]))
             print("Weapons:\t" + NTCONST.getGuns(jsonFormat[key]["wepA"]) + " - " + NTCONST.getGuns(
@@ -114,12 +116,11 @@ def return_api_str():
         key = "previous"  # or if there is no current run, the previous run
     if bool(jsonFormat[key]):
         return [jsonFormat[key][parameter] for parameter in parameters]  # kill count
-		
+
     elif not bool(currentRun) and not bool(previousRun):  # if there is no current or previous run
         return [None for _ in parameters]
 
 
-
-assert_history_file() # check if the history.json exists
-if __name__ == "__main__": 
+assert_history_file()  # check if the history.json exists
+if __name__ == "__main__":
     continuous_update(5)  # update every five seconds
