@@ -11,6 +11,7 @@ world = np.loadtxt("worlds.txt", delimiter="\t", dtype=str)
 crown = np.loadtxt("crowns.txt", delimiter="\t", dtype=str)
 guns = np.loadtxt("guns.txt", delimiter="\t", dtype=str)
 mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
+sortedmutation = []
 
 
 # level
@@ -20,6 +21,12 @@ mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
 # skin (0,1)
 # ultra
 #
+
+def getsortedmutation(omt, nmt):  # old mutation string, new mutation string
+    sortedmutation.append(mutations[str(omt ^ nmt).index("1")][1])
+    return ','.join(map(str, sortedmutation))
+
+
 def getStreamlink():
     return str(np.loadtxt("streamlink.txt", dtype=str))
 
