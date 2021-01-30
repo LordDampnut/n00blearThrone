@@ -69,7 +69,8 @@ class InfoPanel:
 		else:
 			self.Maxhealth = 8
 		#assemble health string
-		self.health = "%i / %i" % (self.health, self.Maxhealth)
+		if(self.health is not None):
+			self.health = "%i / %i" % (self.health, self.Maxhealth)
 
 		#Skin
 		if(self.skin):
@@ -78,7 +79,8 @@ class InfoPanel:
 			self.skin = 'A'
 
 		#Worldstring
-		self.worldstring = "World: %i-%i L%i" %(self.world, self.level, self.loops)
+		if(self.world is not None and self.level is not None and self.loops is not None):
+			self.worldstring = "World: %i-%i L%i" %(self.world, self.level, self.loops)
 
 		#update all the labels
 		self.CharLabel.configure(text="Character: " + NTCONST.getCharacter(self.char) +" "+ self.skin + "-Skin")
