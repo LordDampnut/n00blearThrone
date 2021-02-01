@@ -11,7 +11,7 @@ world = np.loadtxt("worlds.txt", delimiter="\t", dtype=str)
 crown = np.loadtxt("crowns.txt", delimiter="\t", dtype=str)
 guns = np.loadtxt("guns.txt", delimiter="\t", dtype=str)
 mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
-
+sortedmutation = []
 
 # level
 # health
@@ -20,6 +20,53 @@ mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
 # skin (0,1)
 # ultra
 #
+
+"""  # Don't use this function yet, it has to be fixed :(
+def getsortedmutation(omt, nmt):  # old mutation string, new mutation string
+    # Hard Work foes here
+    
+mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
+
+# print(f"Length of s1 = {len(s1)}")
+list1 = list(s1)
+list2 = list(s2)
+templist = []
+sortedmutation = []
+change = []
+
+
+def getsortedmutation(omt, nmt):  # old mutation string, new mutation string
+    print(int(omt))  # debug
+    if int(nmt) < int(omt):
+        tmeplist = []
+        return templist
+        print("scheisse")
+    elif (int(nmt) == int(omt)):
+        return templist
+
+    if int(nmt) == 0: #wenn alte mutation alle 0 dann sortierte liste zurücksetzen
+        global sortedmutation
+    else:
+        global sortedmutation
+        sortedmutation = templist
+
+    changed = []  # leere output liste erstellen
+    list1, list2 = list(omt), list(nmt)  # strings in listen umwandeln
+
+    for i in range(len(list1)):  # len = 29
+        xorresult = (int(list1[i]) ^ int(list2[i]))
+        print(xorresult)
+        if xorresult == 1:
+            print(mutations[xorresult][1])
+            templist.append(mutations[xorresult][1])
+
+    return templist
+
+    
+    return ','.join(map(str, sortedmutation))
+"""
+
+
 def getStreamlink():
     return str(np.loadtxt("streamlink.txt", dtype=str))
 
