@@ -6,12 +6,13 @@ Created on Thu Jan 21 18:12:53 2021
 """
 import numpy as np
 
+# import die
+
 enemies = np.loadtxt("enemies.txt", delimiter="\t", dtype=str)
 world = np.loadtxt("worlds.txt", delimiter="\t", dtype=str)
 crown = np.loadtxt("crowns.txt", delimiter="\t", dtype=str)
 guns = np.loadtxt("guns.txt", delimiter="\t", dtype=str)
 mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
-sortedmutation = []
 
 # level
 # health
@@ -20,21 +21,54 @@ sortedmutation = []
 # skin (0,1)
 # ultra
 #
-
-"""  # Don't use this function yet, it has to be fixed :(
-def getsortedmutation(omt, nmt):  # old mutation string, new mutation string
-    # Hard Work foes here
-    
-mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
-
 # print(f"Length of s1 = {len(s1)}")
-list1 = list(s1)
-list2 = list(s2)
-templist = []
-sortedmutation = []
-change = []
+templist = [0] * 29  #
+mutationliterals, counter = [], []  #
+mutationsstring = ""
 
 
+# 00000101000100000100000000010
+def getmutationstring():
+    return mutationsstring
+
+def setmutationstring(temp):
+    mutationsstring = temp
+
+def getmutdiff(newstring, oldstring=templist):
+    """
+    Function returns a list containing 0 and 1 where every "1" is the difference between the input and output strings
+    :param oldstring: "old" mutation string containing 0 and 1
+    :param newstring: "new" mutation string containing 0 and 1
+    """
+    """
+    Newstring coming in, vergleiche mit altem string. (Templist) 
+    Wenn gleich dann hat sich nix geaendert. return 0es (neue variable?)
+    
+    """
+    if newstring == oldstring: return templist  # wenn keine aenderungen dann alten wert zurueck geben
+
+    listold, listnew, difference = list(oldstring), list(newstring), []
+    for _ in range(len(listold)):
+        j = (int(listold[_]) ^ int(listnew[_]))
+        print(j)
+        difference.append(
+            (int(listold[_]) ^ int(listnew[_])))  # xor both strings position for position and append result to output list
+    templist = newstring
+    # print(f"Differenz: {difference}")
+
+    return sortMutation(difference)
+
+
+def sortMutation(differencestr):
+    temp = getmutationstring()
+
+    for i in range(len(differencestr)):
+        temp += mutations[i][1]
+    return temp
+
+
+
+"""
 def getsortedmutation(omt, nmt):  # old mutation string, new mutation string
     print(int(omt))  # debug
     if int(nmt) < int(omt):
@@ -44,7 +78,7 @@ def getsortedmutation(omt, nmt):  # old mutation string, new mutation string
     elif (int(nmt) == int(omt)):
         return templist
 
-    if int(nmt) == 0: #wenn alte mutation alle 0 dann sortierte liste zurücksetzen
+    if int(nmt) == 0:  # wenn alte mutation alle 0 dann sortierte liste zurücksetzen
         global sortedmutation
     else:
         global sortedmutation
@@ -62,7 +96,6 @@ def getsortedmutation(omt, nmt):  # old mutation string, new mutation string
 
     return templist
 
-    
     return ','.join(map(str, sortedmutation))
 """
 
@@ -100,3 +133,9 @@ def getGuns(n):
 def writelink(streamlink):
     file = open("streamlink.txt", "w")
     file.write(streamlink)
+
+
+if __name__ == "__main__":
+    print(templist)
+    # getmutdiff("00000000000000000000000000010")  # used for testing
+    # getmutdiff("00000000000000000100000000010")
