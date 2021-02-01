@@ -86,7 +86,7 @@ def continuous_update(interval):
             print("Crown:\t\t" + NTCONST.getCrown(jsonFormat[key]["crown"]))
             print("Loop:\t\tL" + str(jsonFormat[key]["loops"]))
             print("Kills:\t\t" + str(jsonFormat[key]["kills"]))
-            print("Mutations: \t\t" + str(NTCONST.getmutdiff(jsonFormat[key]["mutations"])))
+            print("Mutations: \t" + str(NTCONST.getmutationliterals(jsonFormat[key]["mutations"])))
             # print(NTCONST.getmutdiff(jsonFormat[key]["mutations"]))
 
             if bool(currentRun) and bool(previousRun) and current_run_ts != currentRun["timestamp"]:
@@ -98,8 +98,7 @@ def continuous_update(interval):
         elif not bool(jsonFormat[key]):  # if there is no current or previous run
             print("No current or previous run detected!\nIs your stream key enabled? (Settings > Game > Stream Key)")
 
-
-current_run_ts = None  # current run timestamp for returning function
+        NTCONST.getmcurrent_run_ts = None  # current run timestamp for returning function
 
 
 def return_api_str():
