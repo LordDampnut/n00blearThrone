@@ -12,15 +12,17 @@ crown = np.loadtxt("crowns.txt", delimiter="\t", dtype=str)
 guns = np.loadtxt("guns.txt", delimiter="\t", dtype=str)
 mutations = np.loadtxt("mutations.txt", delimiter="\t", dtype=str)
 
-# level
-# health
-# kills
-# loops
-# skin (0,1)
-# ultra
-#
-# templist = [0] * 29
+wdict = {}
+with open("worlds.txt") as wd:
+    for line in wd:
+        id, literal = line.strip().split("\t",2)
+        wdict[id] = literal.strip()
+
+
 mutationliterals, refmutations = [], [0] * 29  #
+
+def worldliterals(apiworldstring):
+    return wdict[str(apiworldstring)]
 
 
 def checksumoflist(l):
@@ -112,3 +114,6 @@ def getGuns(n):
 def writelink(streamlink):
     file = open("streamlink.txt", "w")
     file.write(streamlink)
+
+if __name__ == "__main__":
+    print(wdict)
