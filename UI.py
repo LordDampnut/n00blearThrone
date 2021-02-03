@@ -40,7 +40,7 @@ class InfoPanel:
         self.EnemyLabel.grid()
         self.CrownLabel.grid()
         self.KillLabel.grid()
-        self.MutationLabel.grid()
+        self.MutationLabel.grid(column=3, row=0, padx=5)
         self.DeathPanel.grid()
 
         self.InfoPanel.after(1000, self.refresh_InfoPanel)
@@ -63,7 +63,7 @@ class InfoPanel:
         # set max health according to characters
         if self.char == 2:
             self.Maxhealth = 10
-            if self.ultra == 1: # might change to "2" dunno yet
+            if self.ultra == 1:  # might change to "2" dunno yet
                 self.Maxhealth += 6
         elif self.char == 4:
             self.Maxhealth = 2
@@ -98,7 +98,8 @@ class InfoPanel:
         self.EnemyLabel.configure(text="Last hit by: " + NTCONST.getLastHitEnemy(self.lasthit))
         self.CrownLabel.configure(text="Crown: " + NTCONST.getCrown(self.crown))
         self.KillLabel.configure(text="Kills: %i" % self.kills)
-        self.MutationLabel.configure(text="Mutations: ")
+        self.MutationLabel.configure(
+            text="Mutations: %s\n" % NTCONST.formatliterals(NTCONST.getmutationliterals(self.mutations)))
         # self.DeathPanel.configure(text=f" Death probabllity: {(diag.get_death_probabilities()*100):.1f}" )
 
         self.InfoPanel.after(1000, self.refresh_InfoPanel)
@@ -141,7 +142,7 @@ if __name__ == "__main__":
 
 
     def functionAPIlink():
-        # make new window
+        # make new window to change steam ID and stream key
         linkChange = tk.Toplevel(root)
         linkChange.title("Change API Info")
         linkChange.geometry("300x120")
@@ -181,9 +182,9 @@ if __name__ == "__main__":
     # make Main window
     root = tk.Tk()
     root.geometry("500x450")
-    root.title("N00blear Throne UI")
+    root.title("N00blear Throne")
 
-    for i in range(3):
+    for i in range(4):
         root.columnconfigure(i, weight=1)
 
     root.rowconfigure(1, weight=1)
@@ -196,14 +197,14 @@ if __name__ == "__main__":
     tk.Label(mainframe, text="Stream Key: " + Streamkey).grid(column=1)
     buttonAPIlink = tk.Button(mainframe, text="Change", command=functionAPIlink)
     buttonAPIlink.grid(column=2, padx=5, pady=5)
-    mainframe.grid(column=1, columnspan=2, padx=5, pady=5)
+    mainframe.grid(column=0, columnspan=1, padx=5, pady=5)
     # Info Panel about current run
 
     InfoPanel = InfoPanel(root)
 
     # button to close program
-    exitbutton = tk.Button(root, text="close", command=exit)
-    exitbutton.grid(column=1, row=2, pady=5, padx=20)
+    exitbutton = tk.Button(root, text="Close", command=exit)
+    exitbutton.grid(column=0, row=2, pady=5, padx=20)
 
     ############### MAIN WINDOW END ####################
 
