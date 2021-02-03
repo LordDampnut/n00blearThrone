@@ -55,6 +55,16 @@ def getmutationliterals(mutationstring):
     return mutationliterals
 
 
+def formatliterals(literalstring):
+    catstring = ""
+    #print(f"Laenge: {len(literalstring)}")
+    for i in range(len(literalstring)):
+        catstring += (f"{i + 1}: {str(literalstring[i])}\n")
+
+    #print(catstring)
+    return catstring
+
+
 def getmutdiff(newstring):
     """
     Function returns a list containing 0 and 1 where every "1" is the difference between the input and output strings
