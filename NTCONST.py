@@ -57,11 +57,9 @@ def getmutationliterals(mutationstring):
 
 def formatliterals(literalstring):
     catstring = ""
-    #print(f"Laenge: {len(literalstring)}")
     for i in range(len(literalstring)):
         catstring += (f"{i + 1}: {str(literalstring[i])}\n")
 
-    #print(catstring)
     return catstring
 
 
