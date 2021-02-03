@@ -28,7 +28,7 @@ class InfoPanel:
         self.CrownLabel = tk.Label(self.InfoPanel, text="Crown: ")
         self.KillLabel = tk.Label(self.InfoPanel, text="Kills: ")
         self.MutationLabel = tk.Label(self.InfoPanel, text="Mutations: ")
-        self.DeathPanel = tk.Label(self.InfoPanel, text="Probability of Death in this level: ")
+        self.DeathPanel = tk.Label(self.InfoPanel, text="Probability of Death in this level: low but never zero")
 
         self.InfoPanel.grid()
 
@@ -87,7 +87,7 @@ class InfoPanel:
 
         # Worldstring
         if (self.world is not None and self.level is not None and self.loops is not None):
-            self.worldstring = "World: %i-%i L%i" % (self.world, self.level, self.loops)
+            self.worldstring = "World: %s - %i L%i" % (NTCONST.worldliterals(self.world), self.level, self.loops)
 
         # update all the labels
         self.CharLabel.configure(text="Character: " + NTCONST.getCharacter(self.char) + " " + self.skin + "-Skin")
