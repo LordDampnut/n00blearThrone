@@ -101,7 +101,7 @@ class InfoPanel:
         self.KillLabel.configure(text="Kills: %i" % self.kills)
         self.MutationLabel.configure(
             text="Mutations: %s\n" % NTCONST.formatliterals(NTCONST.getmutationliterals(self.mutations)))
-        current_death_prob = self.death_probs[f"{self.world}-{self.level}-{self.loops}"] 
+        current_death_prob = self.death_probs[f"{self.loops}-{self.world}-{self.level}"] 
         self.DeathPanel.configure(text=f" Death probabllity: {(current_death_prob*100):.1f} %" )
 
 
