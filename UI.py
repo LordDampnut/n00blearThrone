@@ -18,7 +18,9 @@ class InfoPanel:
     def __init__(self, parent):
         self.Maxhealth = 0
         self.InfoPanel = tk.Frame(parent, padx=5, pady=5)
+        self.death_probs =diag.get_from_history('death_probabilities')
 
+        
         self.CharLabel = tk.Label(self.InfoPanel, text="Character: ")
         self.HealthLabel = tk.Label(self.InfoPanel, text="Health: ")
         self.LevelLabel = tk.Label(self.InfoPanel, text="Level:")
@@ -29,7 +31,6 @@ class InfoPanel:
         self.KillLabel = tk.Label(self.InfoPanel, text="Kills: ")
         self.MutationLabel = tk.Label(self.InfoPanel, text="Mutations: ")
         self.DeathPanel = tk.Label(self.InfoPanel, text="Probability of Death in this level: low but never zero")
-
         self.InfoPanel.grid()
 
         self.CharLabel.grid()
@@ -42,7 +43,7 @@ class InfoPanel:
         self.KillLabel.grid()
         self.MutationLabel.grid(column=3, row=0, padx=5)
         self.DeathPanel.grid()
-
+        
         self.InfoPanel.after(1000, self.refresh_InfoPanel)
 
     def refresh_InfoPanel(self):
@@ -100,7 +101,9 @@ class InfoPanel:
         self.KillLabel.configure(text="Kills: %i" % self.kills)
         self.MutationLabel.configure(
             text="Mutations: %s\n" % NTCONST.formatliterals(NTCONST.getmutationliterals(self.mutations)))
-        # self.DeathPanel.configure(text=f" Death probabllity: {(diag.get_death_probabilities()*100):.1f}" )
+        current_death_prob = self.death_probs[f"{self.world}-{self.level}-{self.loops}"] 
+        self.DeathPanel.configure(text=f" Death probabllity: {(current_death_prob*100):.1f} %" )
+
 
         self.InfoPanel.after(1000, self.refresh_InfoPanel)
 
