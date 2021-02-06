@@ -67,6 +67,7 @@ def get_from_history(*args):
         return argument_dict[args[0]]()
 
 def plot_probabilities():
+    plt.figure(figsize=(8, 4.5))
     death_probabilities = get_death_probabilities()
     kees = list(death_probabilities.keys())
     redundant_lvls = ["-0-2","-0-3","-2-2","-2-3","-4-2","-4-3","-6-2","-6-3","-10"]
