@@ -8,6 +8,9 @@ If you then interpret the data you probably wont suck less at playing the game.
 
 Info about the stream key has been taken from [NT Fandom Wiki](https://nuclear-throne.fandom.com/wiki/Stream_Keys)
 
+# Data Showcase
+<img src="https://user-images.githubusercontent.com/64082072/107098157-db1eed00-680e-11eb-8b60-7469aa8f1492.png" alt="Survival Probability"/>
+
 # ToDo
 * Finish NTCONST and add all "decoders" for the json string
   * ~~find a way to display the speacial worlds on the console (e.g. world 102 as Pizza sewers)~~
