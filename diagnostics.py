@@ -37,7 +37,7 @@ def get_death_probabilities(history_dict=history_dict):
                                    and not run["world"] in ["107","106","100"]) or (world_id in ["107","106","100"]))
                                    for run in history_dict.values()])))
                                    for world_id in world_ids
-                                   for level in [1, 2, 3] 
+                                   for level in [0, 1, 2, 3] 
                                    for loops in range(10)}  # (times_you_died_in_this_level OR ANY LEVEL BEFORE IT / time_you_died_ever) for each level
 
     """only the runs that are still goin at this point are counted
@@ -70,12 +70,19 @@ def plot_probabilities():
     death_probabilities = get_death_probabilities()
     kees = list(death_probabilities.keys())
     redundant_lvls = ["0-2","0-3","2-2","2-3","4-2","4-3","6-2","6-3","10"]
-    kees = [ key for key in kees if not any(redundant_lvl in key for redundant_lvl in redundant_lvls)]# remove special levels
+    kees = [ key for key in kees if not any((redundant_lvl in key or key.endswith("-0")) for redundant_lvl in redundant_lvls)]# remove special levels
     kees.sort()
+    limiter = list([death_probabilities[_] for _ in kees]).index(1.0)+1
+
     sorted_values = [1-death_probabilities[_] for _ in kees]
-    plt.plot(kees,sorted_values,'k')
-    plt.fill_between(kees,[0 for _ in range(len(kees))],sorted_values,color='limegreen',alpha=0.2,label='LIFE')
-    plt.fill_between(kees,[1 for _ in range(len(kees))],sorted_values,color='r',alpha=0.2,label='DETH')
+    plt.plot(kees[:limiter],sorted_values[:limiter],'k')
+    plt.fill_between(kees[:limiter],[0 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='limegreen',alpha=0.2,label='LIFE')
+    plt.fill_between(kees[:limiter],[1 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='r',alpha=0.2,label='DETH')
+	
+    plt.title(label = f"P of Ded")
+    plt.xlabel("Level - Loop-World-Level")
+    plt.ylabel("Probability Surviving to the next Level")
+
     plt.legend()
     plt.show()
 
