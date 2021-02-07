@@ -70,7 +70,7 @@ def plot_probabilities():
     plt.figure(figsize=(8, 4.5))
     death_probabilities = get_death_probabilities()
     kees = list(death_probabilities.keys())
-    redundant_lvls = ["-0-2","-0-3","-2-2","-2-3","-4-2","-4-3","-6-2","-6-3","-10"]
+    redundant_lvls = ["0-0-1","-0-2","-0-3","-2-2","-2-3","-4-2","-4-3","-6-2","-6-3","-10"]
     kees = [ key for key in kees if not any((redundant_lvl in key or key.endswith("-0")) for redundant_lvl in redundant_lvls)]# remove special levels
     kees.sort()
     limiter = list([death_probabilities[_] for _ in kees]).index(1.0)+1
