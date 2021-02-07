@@ -4,7 +4,8 @@ from NTCONST import world
 import json
 
 world_ids = [world_item[0] for world_item in world]
-almost_nothing =(1-np.nextafter(1, 0))
+almost_nothing = (1 - np.nextafter(1, 0))
+
 
 def get_history_dict():
     """
@@ -18,7 +19,8 @@ history_dict = get_history_dict()
 
 
 def get_average_kills(history_dict=history_dict):
-    average_kills = np.mean([int(run["kills"]) for timestamp, run in history_dict.items()])  # calculate average kills from history dictionary
+    average_kills = np.mean([int(run["kills"]) for timestamp, run in
+                             history_dict.items()])  # calculate average kills from history dictionary
     return average_kills
 
 
@@ -26,19 +28,23 @@ def get_death_probabilities(history_dict=history_dict):
     # A monstrous one-liner that creates a dictionary
     death_probabilities = {f"{loops}-{world_id}-{level}":
                                (sum([bool((
-                                   run["world"] == str(world_id) and run["level"] == str(level) and run["loops"] == str(loops))
-                                   and not run["world"] in ["107","106","100"])
-                                   for run in history_dict.values()])
-                                    /
+                                                  run["world"] == str(world_id) and run["level"] == str(level) and run[
+                                              "loops"] == str(loops))
+                                          and not run["world"] in ["107", "106", "100"])
+                                     for run in history_dict.values()])
+                                /
                                 (almost_nothing + sum([bool(
-                                 ((int(run["level"]) >= level and int(run["world"][-1]) == int(world_id[-1]) and int(run["loops"]) == loops) or
-                                                                 (int(run["world"][-1]) >  int(world_id[-1]) and int(run["loops"]) == loops) or
-                                                                                                        (int(run["loops"]) > loops)
-                                   and not run["world"] in ["107","106","100"]) or (world_id in ["107","106","100"]))
-                                   for run in history_dict.values()])))
-                                   for world_id in world_ids
-                                   for level in [0, 1, 2, 3] 
-                                   for loops in range(10)}  # (times_you_died_in_this_level OR ANY LEVEL BEFORE IT / time_you_died_ever) for each level
+                                    ((int(run["level"]) >= level and int(run["world"][-1]) == int(world_id[-1]) and int(
+                                        run["loops"]) == loops) or
+                                     (int(run["world"][-1]) > int(world_id[-1]) and int(run["loops"]) == loops) or
+                                     (int(run["loops"]) > loops)
+                                     and not run["world"] in ["107", "106", "100"]) or (
+                                                world_id in ["107", "106", "100"]))
+                                    for run in history_dict.values()])))
+                           for world_id in world_ids
+                           for level in [0, 1, 2, 3]
+                           for loops in range(
+            10)}  # (times_you_died_in_this_level OR ANY LEVEL BEFORE IT / time_you_died_ever) for each level
 
     """only the runs that are still goin at this point are counted
        so only the current run as well as all the runs that went on for longer than the current run
@@ -66,26 +72,31 @@ def get_from_history(*args):
     else:
         return argument_dict[args[0]]()
 
+
 def plot_probabilities():
     plt.figure(figsize=(8, 4.5))
     death_probabilities = get_death_probabilities()
     kees = list(death_probabilities.keys())
-    redundant_lvls = ["-0-2","-0-3","-2-2","-2-3","-4-2","-4-3","-6-2","-6-3","-10"]
-    kees = [ key for key in kees if not any((redundant_lvl in key or key.endswith("-0")) for redundant_lvl in redundant_lvls)]# remove special levels
+    redundant_lvls = ["-0-2", "-0-3", "-2-2", "-2-3", "-4-2", "-4-3", "-6-2", "-6-3", "-10"]
+    kees = [key for key in kees if not any(
+        (redundant_lvl in key or key.endswith("-0")) for redundant_lvl in redundant_lvls)]  # remove special levels
     kees.sort()
-    limiter = list([death_probabilities[_] for _ in kees]).index(1.0)+1
+    limiter = list([death_probabilities[_] for _ in kees]).index(1.0) + 1
 
-    sorted_values = [1-death_probabilities[_] for _ in kees]
-    plt.plot(kees[:limiter],sorted_values[:limiter],'k')
-    plt.fill_between(kees[:limiter],[0 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='limegreen',alpha=0.2,label='LIFE')
-    plt.fill_between(kees[:limiter],[1 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='r',alpha=0.2,label='DETH')
-	
-    plt.title(label = f"P of Ded")
+    sorted_values = [1 - death_probabilities[_] for _ in kees]
+    plt.plot(kees[:limiter], sorted_values[:limiter], 'k')
+    plt.fill_between(kees[:limiter], [0 for _ in range(len(kees))][:limiter], sorted_values[:limiter],
+                     color='limegreen', alpha=0.2, label='LIFE')
+    plt.fill_between(kees[:limiter], [1 for _ in range(len(kees))][:limiter], sorted_values[:limiter], color='r',
+                     alpha=0.2, label='DETH')
+
+    plt.title(label=f"P of Ded")
     plt.xlabel("Level - Loop-World-Level")
     plt.ylabel("Probability Surviving to the next Level")
 
     plt.legend()
     plt.show()
+
 
 if __name__ == "__main__":
     history_dict = get_history_dict()
@@ -93,5 +104,3 @@ if __name__ == "__main__":
     average_kills, death_probabilities = history_values["average_kills"], history_values["death_probabilities"]
 
     plot_probabilities()
-
-
