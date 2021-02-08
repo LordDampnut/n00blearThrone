@@ -10,6 +10,8 @@ Info about the stream key has been taken from [NT Fandom Wiki](https://nuclear-t
 
 # Data Showcase
 <img src="https://user-images.githubusercontent.com/64082072/107098157-db1eed00-680e-11eb-8b60-7469aa8f1492.png" alt="Survival Probability"/>
+<img src="https://user-images.githubusercontent.com/25978461/107216237-c6a84380-6a0c-11eb-9eba-ac15ff35e4f7.png" alt="Survival Probability 2"/>
+Guess who kills me the most..
 
 # ToDo
 * Finish NTCONST and add all "decoders" for the json string
