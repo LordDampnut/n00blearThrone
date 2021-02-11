@@ -67,7 +67,10 @@ def get_from_history(*args):
         return argument_dict[args[0]]()
 
 def plot_probabilities():
-    plt.figure(figsize=(8, 4.5))
+
+
+    
+    
     death_probabilities = get_death_probabilities()
     kees = list(death_probabilities.keys())
     redundant_lvls = ["-0-2","-0-3","-2-2","-2-3","-4-2","-4-3","-6-2","-6-3","-10"]
@@ -75,14 +78,20 @@ def plot_probabilities():
     kees.sort()
     limiter = list([death_probabilities[_] for _ in kees]).index(1.0)+1
 
+    fig = plt.figure(figsize=(8, 4.5))
+
+    ax = fig.add_subplot(111)
+
     sorted_values = [1-death_probabilities[_] for _ in kees]
-    plt.plot(kees[:limiter],sorted_values[:limiter],'k')
-    plt.fill_between(kees[:limiter],[0 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='limegreen',alpha=0.2,label='LIFE')
-    plt.fill_between(kees[:limiter],[1 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='r',alpha=0.2,label='DETH')
+
+    ax.plot(kees[:limiter],sorted_values[:limiter],'k')
+    ax.xaxis.set_ticks(kees[:limiter][::3])
+    ax.fill_between(kees[:limiter],[0 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='limegreen',alpha=0.2,label='LIFE')
+    ax.fill_between(kees[:limiter],[1 for _ in range(len(kees))][:limiter],sorted_values[:limiter],color='r',alpha=0.2,label='DETH')
 	
-    plt.title(label = f"P of Ded")
-    plt.xlabel("Level - Loop-World-Level")
-    plt.ylabel("Probability Surviving to the next Level")
+    ax.set_title(label = f"P of Death | {limiter} logged deaths")
+    ax.set_xlabel("Level - [Loop-World-Level]")
+    ax.set_ylabel("Probability Surviving to the next Level")
 
     plt.legend()
     plt.show()
