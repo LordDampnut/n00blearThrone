@@ -102,5 +102,3 @@ if __name__ == "__main__":
     average_kills, death_probabilities = history_values["average_kills"], history_values["death_probabilities"]
 
     plot_probabilities()
-
-
